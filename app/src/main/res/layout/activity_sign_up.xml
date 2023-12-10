@@ -42,6 +42,13 @@
             android:hint="@string/set_up_a_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- ProgressBar -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <!-- Button -->
     <Button
         android:id="@+id/sign_up_btn"

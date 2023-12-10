@@ -2,22 +2,21 @@ package edu.northeastern.group_project_group_duolikun_daniya;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Sign_up extends AppCompatActivity {
 
@@ -25,6 +24,7 @@ public class Sign_up extends AppCompatActivity {
     TextInputEditText editTextPassword;
     Button signUpBtn;
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +35,13 @@ public class Sign_up extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        progressBar = findViewById(R.id.progress_bar);
         signUpBtn = findViewById(R.id.sign_up_btn);
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 String email = String.valueOf(editTextEmail.getText());
                 String password = String.valueOf(editTextPassword.getText());
 
@@ -59,8 +61,10 @@ public class Sign_up extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-//                                    // Sign in success, update UI with the signed-in user's information
+//                                    // Sign in success, update UI with the signed-in user's
+//                                    information
 //                                    Log.d(TAG, "createUserWithEmail:success");
 //                                    FirebaseUser user = mAuth.getCurrentUser();
                                     Log.d(TAG, "createUserWithEmail:success");
