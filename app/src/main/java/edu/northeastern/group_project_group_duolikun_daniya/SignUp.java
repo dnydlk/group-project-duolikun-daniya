@@ -5,6 +5,8 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +23,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignUp extends AppCompatActivity {
@@ -90,18 +95,36 @@ public class SignUp extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-//                                    // Sign in success, update UI with the signed-in user's
-//                                    information
-//                                    Log.d(TAG, "createUserWithEmail:success");
-//                                    FirebaseUser user = mAuth.getCurrentUser();
+
+                                    // Sign in success, update UI with the signed-in user' information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     Toast.makeText(SignUp.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
+
+                                    // Using a Handler to post a delayed Runnable: wait 2 seconds
+                                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // Code to be executed after 2 seconds
+                                            Intent intent = new Intent(getApplicationContext(), LogIn.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }, 1500);
                                 } else {
+
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(SignUp.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    try {
+                                        throw task.getException();
+                                    } catch (FirebaseAuthWeakPasswordException e) {
+                                        makeAToast("Password too short. Please enter at least 6 characters.");
+                                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                                        makeAToast("Invalid email format. Please enter a valid email address.");
+                                    }
+                                    catch (Exception e) {
+                                        makeAToast("Authentication failed.");
+                                    }
                                 }
                             }
                         });
@@ -118,4 +141,10 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
+
+    // Helper method to make a Toast
+    private void makeAToast(String message) {
+        Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }
