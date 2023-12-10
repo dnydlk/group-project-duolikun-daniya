@@ -5,4 +5,6 @@
     <string name="password">Password</string>
     <string name="set_up_a_password">Set up a password</string>
     <string name="sign_up">Sign up</string>
+    <string name="click_to_login">Click to login</string>
+    <string name="click_to_sign_up">Click to sign up</string>
 </resources>
