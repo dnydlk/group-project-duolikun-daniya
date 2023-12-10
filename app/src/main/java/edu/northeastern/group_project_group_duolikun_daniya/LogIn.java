@@ -1,8 +1,10 @@
 package edu.northeastern.group_project_group_duolikun_daniya;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,7 +34,10 @@ public class LogIn extends AppCompatActivity {
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            // todo Only testing now, so the new intent is directed to the User Account Page
+            //  But in the end it should be the Home page
+            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }

@@ -7,4 +7,6 @@
     <string name="sign_up">Sign up</string>
     <string name="click_to_login">Click to login</string>
     <string name="click_to_sign_up">Click to sign up</string>
+    <string name="log_out">Log out</string>
+    <string name="email_header">Email:</string>
 </resources>
