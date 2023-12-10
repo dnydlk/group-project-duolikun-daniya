@@ -52,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkCurrentUser() {
         // todo remove this line
-        Log.d("MainActivity", "Checking current user");
+        Log.d("MainActivity", "checkCurrentUser(): Checking current user");
         FirebaseUser currentFirebaseUser = firebaseAuth.getCurrentUser();
+        Log.d("MainActivity", "checkCurrentUser(): currentFirebaseUser: " + currentFirebaseUser.getEmail());
         if (currentFirebaseUser != null) {
             // Get user's email
             String userEmail = currentFirebaseUser.getEmail();
+            Log.d("MainActivity", "checkCurrentUser(): userEmail: " + userEmail);
             if (userEmail != null) {
                 // Check if user node exists in the database
                 usersRef.child(userEmail.replace(".", ",")).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -64,8 +66,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             // User node exists, proceed with your logic
+                            Log.d("MainActivity", "onDataChange(DataSnapshot dataSnapshot): dataSnapshot.exists()");
                         } else {
                             // User node does not exist, todo create a new user node
+                            Log.d("MainActivity", "onDataChange(DataSnapshot dataSnapshot): dataSnapshot.exists() does not exists");
 
                         }
                     }
@@ -157,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
 //    }
 
+    /**
+     * Helper method to make a toast
+     */
     private void makeAToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }

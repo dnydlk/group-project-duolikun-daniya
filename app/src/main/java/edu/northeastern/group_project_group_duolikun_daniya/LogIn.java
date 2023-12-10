@@ -2,8 +2,10 @@ package edu.northeastern.group_project_group_duolikun_daniya;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -36,7 +38,7 @@ public class LogIn extends AppCompatActivity {
         Log.d("LogInActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             makeAToast("Welcome Back!");
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -60,7 +62,6 @@ public class LogIn extends AppCompatActivity {
         signUpTextView = findViewById(R.id.sign_up_now);
 
 
-
         // Log in button
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +69,8 @@ public class LogIn extends AppCompatActivity {
                 // todo remove this line
                 Log.d("LogInActivity", "Log in button clicked");
                 // Hide the keyboard onClick
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -94,16 +96,13 @@ public class LogIn extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Open main activity if succeed
-                                    // todo Only testing now, so the new intent is directed to the User Account Page
-                                    //  But in the end it should be the Home page
                                     makeAToast("Welcome Back!");
-//                                    Intent intent = new Intent(getApplicationContext(), UserAccount.class);
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(),
+                                            MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-//                                    // If sign in fails, display a message to the user.
-//                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    // If sign in fails, display a message to the user.
                                     Toast.makeText(LogIn.this, "Log-In Failed. Please Verify Your" +
                                                     " Email and Password and Try Again.",
                                             Toast.LENGTH_SHORT).show();
@@ -124,8 +123,31 @@ public class LogIn extends AppCompatActivity {
         });
     }
 
-    // Helper method to make a Toast
+    /**
+     * Helper method to make a toast
+     */
     private void makeAToast(String message) {
         Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Hide the keyboard when user clicks outside of the EditText
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof TextInputEditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm =
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 }
