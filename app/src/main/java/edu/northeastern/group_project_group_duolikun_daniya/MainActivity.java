@@ -14,6 +14,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
+import edu.northeastern.group_project_group_duolikun_daniya.data.User;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference usersRef;
@@ -65,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            // User node exists, proceed with your logic
                             Log.d("MainActivity", "onDataChange(DataSnapshot dataSnapshot): dataSnapshot.exists()");
                         } else {
-                            // User node does not exist, todo create a new user node
+                            // User node does not exist, create a new user node
                             Log.d("MainActivity", "onDataChange(DataSnapshot dataSnapshot): dataSnapshot.exists() does not exists");
+                            createNewUser(userEmail);
 
                         }
                     }
@@ -80,10 +84,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        } else {
-            // No user is logged in, handle accordingly
         }
     }
+
+    private void createNewUser(String email) {
+        // Create a new User object
+        User newUser = new User(email, new HashMap<>(), null);
+
+        // Write the User to the Firebase Database
+        // Replaced '.' in email with ',' to use as Firebase key
+        usersRef.child(email.replace(".", ",")).setValue(newUser)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("MainActivity", "createNewUser: User created successfully");
+                })
+                .addOnFailureListener(e -> {
+                    Log.w("MainActivity", "createNewUser: Failed to create user", e);
+                });
+    }
+
 
 //    private void checkUserGroups(String userEmail) {
 //        // Get a reference to the users node
