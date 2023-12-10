@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "edu.northeastern.group_project_group_duolikun_daniya"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "edu.northeastern.group_project_group_duolikun_daniya"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
