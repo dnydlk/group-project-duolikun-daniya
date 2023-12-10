@@ -1,40 +1,41 @@
 package edu.northeastern.group_project_group_duolikun_daniya.data;
 
 import java.util.List;
+import java.util.Map;
 
 public class User {
     private String email;
-    private List<String> groups;
+    private Map<String, Boolean> groups;
     private String lastInteractedGroup;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String email, List<String> groups, String lastInteractedGroup) {
+    public User(String email, Map<String, Boolean> groups, String lastInteractedGroup) {
         this.email = email;
         this.groups = groups;
-        this.lastInteractedGroup = null;
+        this.lastInteractedGroup = lastInteractedGroup;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public List<String> getGroups() {
-        return groups;
-    }
-
-    public String getLastInteractedGroup() {
-        return lastInteractedGroup;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setGroups(List<String> groups) {
+    public Map<String, Boolean> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Map<String, Boolean> groups) {
         this.groups = groups;
+    }
+
+    public String getLastInteractedGroup() {
+        return lastInteractedGroup;
     }
 
     public void setLastInteractedGroup(String lastInteractedGroup) {

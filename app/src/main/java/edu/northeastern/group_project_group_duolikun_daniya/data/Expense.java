@@ -3,51 +3,81 @@ package edu.northeastern.group_project_group_duolikun_daniya.data;
 import java.util.Map;
 
 public class Expense {
-    private String name;
-    private double totalAmount;
-    private Map<String, Double> participants;
-    private boolean isEvenSplit;
+    private String groupId;
+    private double amount;
+    private String description;
+    private String paidBy;
+    private String splitType;
+    private String date;
+    private Map<String, Double> splitDetails;
 
     public Expense() {
-        // Default constructor required for calls to DataSnapshot.getValue(Expense.class)
+        // Default constructor required for Firebase
     }
 
-    public Expense(String name, double totalAmount, Map<String, Double> participants, boolean isEvenSplit) {
-        this.name = name;
-        this.totalAmount = totalAmount;
-        this.participants = participants;
-        this.isEvenSplit = isEvenSplit;
+    public Expense(String groupId, double amount, String description, String paidBy, String splitType, String date, Map<String, Double> splitDetails) {
+        this.groupId = groupId;
+        this.amount = amount;
+        this.description = description;
+        this.paidBy = paidBy;
+        this.splitType = splitType;
+        this.date = date;
+        this.splitDetails = splitDetails;
     }
 
-    public String getName() {
-        return name;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
-    public double getTotalAmount() {
-        return totalAmount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public Map<String, Double> getParticipants() {
-        return participants;
+    public String getDescription() {
+        return description;
     }
 
-    public void setParticipants(Map<String, Double> participants) {
-        this.participants = participants;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public boolean isEvenSplit() {
-        return isEvenSplit;
+    public String getPaidBy() {
+        return paidBy;
     }
 
-    public void setEvenSplit(boolean evenSplit) {
-        isEvenSplit = evenSplit;
+    public void setPaidBy(String paidBy) {
+        this.paidBy = paidBy;
+    }
+
+    public String getSplitType() {
+        return splitType;
+    }
+
+    public void setSplitType(String splitType) {
+        this.splitType = splitType;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Map<String, Double> getSplitDetails() {
+        return splitDetails;
+    }
+
+    public void setSplitDetails(Map<String, Double> splitDetails) {
+        this.splitDetails = splitDetails;
     }
 }
