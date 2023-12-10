@@ -29,6 +29,8 @@ public class SignUp extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class SignUp extends AppCompatActivity {
         signUpBtn = findViewById(R.id.sign_up_btn);
         textView = findViewById(R.id.log_in_now);
 
+        // Sign up Button
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +63,7 @@ public class SignUp extends AppCompatActivity {
                     return;
                 }
 
-                // Create user in Firebase Database
+                // Create user with email and password in Firebase Database
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -85,6 +88,7 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        // Click to log in
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
