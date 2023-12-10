@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class UserAccount extends AppCompatActivity {
 
-    FirebaseAuth auth;
-    FirebaseUser user;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
     TextView emailHeader;
     TextView userEmail;
     Button logOutBtn;
@@ -25,21 +25,21 @@ public class UserAccount extends AppCompatActivity {
         setContentView(R.layout.activity_user_account);
 
         // Initializations
-        auth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         logOutBtn = findViewById(R.id.log_out_btn);
         emailHeader = findViewById(R.id.email_header);
         userEmail = findViewById(R.id.user_email);
-        user = auth.getCurrentUser();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         // Check if use is null
-        if (user == null) {
+        if (firebaseUser == null) {
             // Go to log in page
             Intent intent = new Intent(getApplicationContext(), LogIn.class);
             startActivity(intent);
             finish();
         } else {
             // Show current user's email
-            userEmail.setText(user.getEmail());
+            userEmail.setText(firebaseUser.getEmail());
         }
 
         // Log out

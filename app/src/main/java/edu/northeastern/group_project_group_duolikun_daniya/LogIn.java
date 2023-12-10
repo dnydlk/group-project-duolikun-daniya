@@ -24,21 +24,21 @@ public class LogIn extends AppCompatActivity {
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
     Button logInBtn;
-    FirebaseAuth mAuth;
+    FirebaseAuth firebaseAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView signUpTextView;
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and open MainActivity accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
             // todo Only testing now, so the new intent is directed to the User Account Page
             //  But in the end it should be the Home page
             makeAToast("Welcome Back!");
-            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -50,12 +50,12 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
         // Initializations
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progress_bar);
         logInBtn = findViewById(R.id.log_in_btn);
-        textView = findViewById(R.id.sign_up_now);
+        signUpTextView = findViewById(R.id.sign_up_now);
 
 
 
@@ -83,7 +83,7 @@ public class LogIn extends AppCompatActivity {
                 }
 
                 // Sign in a user with email address and password
-                mAuth.signInWithEmailAndPassword(email, password)
+                firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -93,8 +93,8 @@ public class LogIn extends AppCompatActivity {
                                     // todo Only testing now, so the new intent is directed to the User Account Page
                                     //  But in the end it should be the Home page
                                     makeAToast("Welcome Back!");
-                                    Intent intent = new Intent(getApplicationContext(), UserAccount.class);
-//                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                    Intent intent = new Intent(getApplicationContext(), UserAccount.class);
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -110,7 +110,7 @@ public class LogIn extends AppCompatActivity {
         });
 
         // Click to sign up
-        textView.setOnClickListener(new View.OnClickListener() {
+        signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SignUp.class);

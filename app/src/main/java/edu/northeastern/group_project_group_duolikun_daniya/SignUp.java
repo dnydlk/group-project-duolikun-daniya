@@ -32,20 +32,20 @@ public class SignUp extends AppCompatActivity {
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
     Button signUpBtn;
-    FirebaseAuth mAuth;
+    FirebaseAuth firebaseAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView logInTextView;
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and open MainActivity accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
             // todo Only testing now, so the new intent is directed to the User Account Page
             //  But in the end it should be the Home page
-            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -57,12 +57,12 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         // Initializations
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progress_bar);
         signUpBtn = findViewById(R.id.sign_up_btn);
-        textView = findViewById(R.id.log_in_now);
+        logInTextView = findViewById(R.id.log_in_now);
 
         // Sign up Button
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +88,7 @@ public class SignUp extends AppCompatActivity {
                 }
 
                 // Create user with email and password in Firebase Database
-                mAuth.createUserWithEmailAndPassword(email, password)
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -130,7 +130,7 @@ public class SignUp extends AppCompatActivity {
         });
 
         // Click to log in
-        textView.setOnClickListener(new View.OnClickListener() {
+        logInTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LogIn.class);
