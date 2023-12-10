@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1076198474194",
+    "project_id": "group-project-duolikun-daniya",
+    "storage_bucket": "group-project-duolikun-daniya.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076198474194:android:43bb45c8726b170c58080b",
+        "android_client_info": {
+          "package_name": "edu.northeastern.group_project_group_duolikun_daniya"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwHgjzvACcgIZ02GWpBiw8Fk1DcJQHjnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
