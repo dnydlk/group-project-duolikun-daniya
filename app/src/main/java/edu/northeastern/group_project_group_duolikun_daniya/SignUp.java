@@ -4,10 +4,12 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -39,6 +41,8 @@ public class SignUp extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        // todo remove this line
+        Log.d("SignUpActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
@@ -54,6 +58,8 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // todo remove this line
+        Log.d("SignUpActivity", "onCreate() called");
         setContentView(R.layout.activity_sign_up);
 
         // Initializations
@@ -68,6 +74,8 @@ public class SignUp extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // todo remove this line
+                Log.d("SignUpActivity", "Sign up button clicked");
                 // Hide the keyboard onClick
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -140,9 +148,32 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    // Helper method to make a Toast
+    /**
+     * Helper method to make a Toast
+     */
     private void makeAToast(String message) {
         Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Hide the keyboard when user clicks outside of the EditText
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof TextInputEditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm =
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
 }

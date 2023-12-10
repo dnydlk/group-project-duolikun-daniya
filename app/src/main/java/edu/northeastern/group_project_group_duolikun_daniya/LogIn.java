@@ -3,6 +3,7 @@ package edu.northeastern.group_project_group_duolikun_daniya;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -31,13 +32,12 @@ public class LogIn extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        // todo remove this line
+        Log.d("LogInActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
-            // todo Only testing now, so the new intent is directed to the User Account Page
-            //  But in the end it should be the Home page
             makeAToast("Welcome Back!");
-//            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
@@ -47,6 +47,8 @@ public class LogIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // todo remove this line
+        Log.d("LogInActivity", "onCreate() called");
         setContentView(R.layout.activity_log_in);
 
         // Initializations
@@ -63,6 +65,8 @@ public class LogIn extends AppCompatActivity {
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // todo remove this line
+                Log.d("LogInActivity", "Log in button clicked");
                 // Hide the keyboard onClick
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

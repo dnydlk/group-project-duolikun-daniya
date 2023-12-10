@@ -13,20 +13,20 @@
         android:id="@+id/email_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/email_header"
-        android:textStyle="bold"
         android:layout_marginBottom="5dp"
-        android:textSize="20sp"/>
+        android:text="@string/email_header"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <!-- todo Show user's email here  -->
     <TextView
         android:id="@+id/user_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:gravity="center"
         android:layout_marginBottom="10dp"
-        android:text="example@email.com"/>
+        android:gravity="center"
+        android:text="example@email.com"
+        android:textSize="20sp" />
 
     <!-- Log out Button -->
     <Button
@@ -35,7 +35,6 @@
         android:layout_height="wrap_content"
         android:text="@string/log_out"
         android:textSize="17sp" />
-
 
 
 </LinearLayout>
