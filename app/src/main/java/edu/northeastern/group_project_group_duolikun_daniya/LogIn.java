@@ -36,6 +36,7 @@ public class LogIn extends AppCompatActivity {
         if(currentUser != null){
             // todo Only testing now, so the new intent is directed to the User Account Page
             //  But in the end it should be the Home page
+            makeAToast("Welcome Back!");
             Intent intent = new Intent(getApplicationContext(), UserAccount.class);
 //            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -88,14 +89,12 @@ public class LogIn extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-//                                    // Sign in success, update UI with the signed-in user's
-//                                    information
-//                                    Log.d(TAG, "signInWithEmail:success");
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(LogIn.this, "Log-In Successful.",
-                                            Toast.LENGTH_SHORT).show();
                                     // Open main activity if succeed
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    // todo Only testing now, so the new intent is directed to the User Account Page
+                                    //  But in the end it should be the Home page
+                                    makeAToast("Welcome Back!");
+                                    Intent intent = new Intent(getApplicationContext(), UserAccount.class);
+//                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -119,5 +118,10 @@ public class LogIn extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    // Helper method to make a Toast
+    private void makeAToast(String message) {
+        Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
     }
 }

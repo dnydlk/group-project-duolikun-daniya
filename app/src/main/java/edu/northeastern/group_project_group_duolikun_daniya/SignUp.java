@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -121,8 +120,7 @@ public class SignUp extends AppCompatActivity {
                                         makeAToast("Password too short. Please enter at least 6 characters.");
                                     } catch (FirebaseAuthInvalidCredentialsException e) {
                                         makeAToast("Invalid email format. Please enter a valid email address.");
-                                    }
-                                    catch (Exception e) {
+                                    } catch (Exception e) {
                                         makeAToast("Authentication failed.");
                                     }
                                 }
