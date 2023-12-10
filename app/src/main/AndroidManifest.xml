@@ -14,7 +14,14 @@
         tools:targetApi="31">
         <activity
             android:name=".Sign_up"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!-- Sign up page as Launcher Activity -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Login"
             android:exported="true">
@@ -22,7 +29,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <!-- Login page as Launcher Activity -->
-                <category android:name="android.intent.category.LAUNCHER" />
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
         <activity
