@@ -5,30 +5,54 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="50dp"
-    tools:context=".LogIn">
+    android:padding="30dp"
+    tools:context=".CreateOrJoinGroupActivity">
 
-    <!-- Log_in TextView -->
+    <!-- Prompt TextView -->
+    <TextView
+        android:id="@+id/prompt_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="start"
+        android:text="@string/please_create_or_join_a_group_to_start_using_the_app"
+        android:textSize="25sp" />
+
+    <!-- Create A Group TextView -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20sp"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textSize="25sp"
+        android:gravity="start"
+        android:text="@string/create_a_group"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Email EditText -->
+    <!-- Create A Group EditText -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
+            android:id="@+id/create_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email" />
+            android:hint="@string/create_a_new_group_here" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Space to separate the two TextViews -->
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp" />
+
+    <!-- Or Join an existing Group TextView -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/or_join_an_existing_group"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <!-- Password EditText -->
     <com.google.android.material.textfield.TextInputLayout
@@ -36,10 +60,10 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
+            android:id="@+id/join_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password" />
+            android:hint="@string/input_6_digits_group_code_to_join" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- ProgressBar -->
@@ -49,24 +73,13 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <!-- Log in Button -->
+    <!-- Next Button -->
     <Button
-        android:id="@+id/log_in_btn"
+        android:id="@+id/next_create_or_join_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/login"
+        android:text="@string/next"
         android:textSize="17sp" />
-
-    <!-- Click to sign up TestView -->
-    <TextView
-        android:id="@+id/sign_up_now"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="@string/click_to_sign_up"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 
 </LinearLayout>

@@ -2,9 +2,14 @@ package edu.northeastern.group_project_group_duolikun_daniya;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,14 +82,50 @@ public class MainActivity extends AppCompatActivity {
             // todo Show the last interacted group here
         } else {
             // User has no groups, prompt to create or join
+            makeAToast("No groups found, please create or join one");
             promptUserToJoinOrCreateGroup();
         }
     }
 
+
     private void promptUserToJoinOrCreateGroup() {
-        // todo Show a dialog, a new activity, or a fragment asking the user to join or create a group
-        //  A dialog like link collector is good
+        Intent intent = new Intent(MainActivity.this, CreateOrJoinGroupActivity.class);
+        startActivity(intent);
+//        // todo rename dialog to dialogCreateOrJoinGroup
+//        Dialog dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.dialog_create_or_join_group);
+//
+//        // Adjust dialog size
+//        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+//        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+//        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        layoutParams.height = (int) (getResources().getDisplayMetrics().heightPixels * 0.65);
+//        dialog.show();
+//        dialog.getWindow().setAttributes(layoutParams);
+//
+//        dialog.findViewById(R.id.next_on_dialog_btn).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String groupNameToCreate = ((EditText) dialog.findViewById(R.id.create_group)).getText().toString();
+//                String groupNameToJoin = ((EditText) dialog.findViewById(R.id.join_group)).getText().toString();
+//
+//                if (groupNameToCreate.isEmpty() && groupNameToJoin.isEmpty()) {
+//                    makeAToast("Please enter a group name to create or join one via group code");
+//                } else if (!groupNameToCreate.isEmpty() && !groupNameToJoin.isEmpty()) {
+//                    makeAToast("Please choose either create or join, not both");
+//                } else if (!groupNameToCreate.isEmpty()) {
+//                    // todo Create group
+//                    makeAToast("Create group");
+//                } else {
+//                    // todo Join group
+//                    makeAToast("Join group");
+//                }
+//            }
+//        });
     }
 
+    private void makeAToast(String message) {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
 
 }

@@ -9,4 +9,10 @@
     <string name="click_to_sign_up">Click to sign up</string>
     <string name="log_out">Log out</string>
     <string name="email_header">Email:</string>
+    <string name="create_a_group">Create a Group:</string>
+    <string name="create_a_new_group_here">Create a new group here</string>
+    <string name="or_join_an_existing_group">Or Join an existing Group:</string>
+    <string name="input_6_digits_group_code_to_join">Input 6 digits group code to join</string>
+    <string name="next">Next</string>
+    <string name="please_create_or_join_a_group_to_start_using_the_app">Please create or join a group to start using the app</string>
 </resources>
