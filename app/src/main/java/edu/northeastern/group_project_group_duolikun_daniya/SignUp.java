@@ -22,10 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -45,7 +47,7 @@ public class SignUp extends AppCompatActivity {
         Log.d("SignUpActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             // todo Only testing now, so the new intent is directed to the User Account Page
             //  But in the end it should be the Home page
 //            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
@@ -77,7 +79,8 @@ public class SignUp extends AppCompatActivity {
                 // todo remove this line
                 Log.d("SignUpActivity", "Sign up button clicked");
                 // Hide the keyboard onClick
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -103,7 +106,8 @@ public class SignUp extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
 
-                                    // Sign in success, update UI with the signed-in user' information
+                                    // Sign in success, update UI with the signed-in user'
+                                    // information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     Toast.makeText(SignUp.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
@@ -113,21 +117,26 @@ public class SignUp extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             // Code to be executed after 2 seconds
-                                            Intent intent = new Intent(getApplicationContext(), LogIn.class);
+                                            Intent intent = new Intent(getApplicationContext(),
+                                                    LogIn.class);
                                             startActivity(intent);
                                             finish();
                                         }
                                     }, 1500);
                                 } else {
-
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     try {
                                         throw task.getException();
                                     } catch (FirebaseAuthWeakPasswordException e) {
-                                        makeAToast("Password too short. Please enter at least 6 characters.");
+                                        makeAToast("Password too short. Please enter at least 6 " +
+                                                "characters.");
                                     } catch (FirebaseAuthInvalidCredentialsException e) {
-                                        makeAToast("Invalid email format. Please enter a valid email address.");
+                                        makeAToast("Invalid email format. Please enter a valid " +
+                                                "email address.");
+                                    } catch (FirebaseAuthUserCollisionException e) {
+                                        resetPassword("This email has already been registered. " +
+                                                "Please use another email.", email);
                                     } catch (Exception e) {
                                         makeAToast("Authentication failed.");
                                     }
@@ -146,6 +155,34 @@ public class SignUp extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    /**
+     * Helper method to reset password
+     */
+    private void resetPassword(String messageToShow, String emailToResetPassword) {
+
+        // Show a snackbar with an action to reset password
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), messageToShow, Snackbar.LENGTH_LONG);
+
+        // Send password reset email
+        snackbar.setAction("Send Email", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.sendPasswordResetEmail(emailToResetPassword)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("ResetPassword", "Email sent.");
+                                    makeAToast("Email sent");
+                                }
+                            }
+                        });
+            }
+        });
+        snackbar.show();
     }
 
     /**
