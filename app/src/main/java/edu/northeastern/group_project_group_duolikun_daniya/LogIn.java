@@ -35,7 +35,7 @@ public class LogIn extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // todo remove this line
-        Log.d("LogInActivity", "onStart() called");
+        Log.d("LogCat - LogInActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
@@ -50,7 +50,7 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // todo remove this line
-        Log.d("LogInActivity", "onCreate() called");
+        Log.d("LogCat - LogInActivity", "onCreate() called");
         setContentView(R.layout.activity_log_in);
 
         // Initializations
@@ -67,7 +67,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // todo remove this line
-                Log.d("LogInActivity", "Log in button clicked");
+                Log.d("LogCat - LogInActivity", "Log in button clicked");
                 // Hide the keyboard onClick
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

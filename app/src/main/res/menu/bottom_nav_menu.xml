@@ -12,7 +12,7 @@
         android:title="@string/members"/>
 
     <item
-        android:id="@+id/expense"
+        android:id="@+id/expenses"
         android:icon="@drawable/ic_expense"
         android:title="@string/expense"/>
 

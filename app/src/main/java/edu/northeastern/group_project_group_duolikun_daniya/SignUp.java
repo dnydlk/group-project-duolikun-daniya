@@ -44,7 +44,7 @@ public class SignUp extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // todo remove this line
-        Log.d("SignUpActivity", "onStart() called");
+        Log.d("LogCat - SignUpActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
@@ -61,7 +61,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // todo remove this line
-        Log.d("SignUpActivity", "onCreate() called");
+        Log.d("LogCat - SignUpActivity", "onCreate() called");
         setContentView(R.layout.activity_sign_up);
 
         // Initializations
@@ -77,7 +77,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // todo remove this line
-                Log.d("SignUpActivity", "Sign up button clicked");
+                Log.d("LogCat - SignUpActivity", "Sign up button clicked");
                 // Hide the keyboard onClick
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -175,7 +175,7 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Log.d("ResetPassword", "Email sent.");
+                                    Log.d("LogCat - ResetPassword", "Email sent.");
                                     makeAToast("Email sent");
                                 }
                             }

@@ -43,6 +43,8 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         joinGroupEditText = findViewById(R.id.join_group);
         nextBtn = findViewById(R.id.next_create_or_join_btn);
         firebaseCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userEmail = getIntent().getStringExtra("userEmail");
+        Log.d("LogCat - CreateOrJoinGroup", "userEmail retrieved: " + userEmail);
 
         // Get the user's ID
         if (userId != null) {
@@ -107,6 +109,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
 
     /**
      * Helper method to join an existing group on Firebase
+     * todo redo this
      */
     private void joinGroupOnFirebase(String groupIDToJoin, String userId) {
         // Reference to the user's 'groups' node in Firebase
@@ -126,6 +129,10 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Helper method to create a new group on Firebase
+     * todo redo this
+     */
     private void createGroupToFirebase(String groupNameToCreate) {
         // Reference to the 'groups' node in Firebase
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("groups");
@@ -141,7 +148,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
 
                     // Group created successfully
-                    Log.d("CreateOrJoinGroup", "Group created successfully");
+                    Log.d("LogCat - CreateOrJoinGroup", "Group created successfully");
                     makeAToast("Group created successfully");
 
                     // Back to main activity
@@ -151,7 +158,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     // Group creation failed
-                    Log.d("CreateOrJoinGroup", "Group creation failed");
+                    Log.d("LogCat - CreateOrJoinGroup", "Group creation failed");
                     makeAToast("Group creation failed");
                 });
 
@@ -172,7 +179,8 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         Random random = new Random();
 
         // Generate a random alphabet character (A-Z)
-        char randomChar = (char) (random.nextInt(26) + 'A');
+//        char randomChar = (char) (random.nextInt(26) + 'A');
+        char randomChar = (char) (new Random().nextInt(26) + 'A');
 
         // Generate a random 5-digit number
         int randomNumber = 10000 + random.nextInt(90000);
