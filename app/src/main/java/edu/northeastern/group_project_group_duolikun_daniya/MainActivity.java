@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import edu.northeastern.group_project_group_duolikun_daniya.data.User;
 
@@ -70,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             Log.d("MainActivity", "onDataChange(DataSnapshot dataSnapshot): dataSnapshot.exists()");
+                            // todo check current user's number of groups
+                            //  =0 creat new group node
+                            //  =1 show that group
+                            //  >1 show lastInteractedGroup
                         } else {
                             // User node does not exist, create a new user node
                             Log.d("MainActivity", "onDataChange(DataSnapshot dataSnapshot): dataSnapshot.exists() does not exists");
@@ -100,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Log.w("MainActivity", "createNewUser: Failed to create user", e);
                 });
+    }
+
+    // todo
+    private void createNewGroup(String groupName, String groupID, Map<String, Boolean> members) {
+
     }
 
 

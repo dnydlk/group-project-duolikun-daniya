@@ -32,6 +32,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
     FirebaseUser firebaseCurrentUser;
     String userId = null;
 
+    // todo don't forget the at least 2 members constraint when creating a group
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

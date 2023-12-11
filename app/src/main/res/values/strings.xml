@@ -16,4 +16,11 @@
     <string name="next">Next</string>
     <string name="please_create_or_join_a_group_to_start_using_the_app">Please create or join a group to start using the app</string>
     <string name="textview">TextView</string>
+    <string name="money_split">Money Split</string>
+    <string name="home">Home</string>
+    <string name="expense">Expense</string>
+    <string name="members">Members</string>
+    <string name="transactions">Transactions</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
