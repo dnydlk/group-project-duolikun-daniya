@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import edu.northeastern.group_project_group_duolikun_daniya.data.User;
 
@@ -35,15 +36,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // todo remove this line
-        // Log.d("LogCat - MainActivity", "onCreate() called");
+        Log.d("LogCat - MainActivity", "onCreate() called");
         setContentView(R.layout.activity_main);
         replaceFragment(new HomeFragment());
 
         // Initializations
         firebaseAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference("users");
-        usersRef.child("testNode").setValue("testValue");
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Bottom Navigation View
@@ -68,59 +67,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //
+        // Check if the current user exists in the database, if not, create a new user node
         checkCurrentUserExists();
 
-//        testTextView = findViewById(R.id.testTextView1);
-//
-//
-//        // Get the user's email from Firebase Authentication
-//        firebaseCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-//        userEmail = firebaseCurrentUser.getEmail();
-//        // todo Remove this line
-//        System.out.println("User email is: " + userEmail);
-//
-//        // Check the the number of groups the user has via userEmail
-//        checkUserGroups(userEmail);
-//
-//        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//        myRef.setValue("Hello, World!");
-
+        //// Write a message to the database
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef = database.getReference("message");
+        //myRef.setValue("Hello, World!");
     }
 
     /**
      * Checks if the current user exists in the database, if not, creates a new user node
      */
     private void checkCurrentUserExists() {
-        // todo remove this line
-        Log.d("LogCat - MainActivity", "checkCurrentUser(): Checking current user");
+        Log.d("LogCat - MainActivity", "checkCurrentUser(): called\n" +
+                "   Checking current user");
         FirebaseUser currentFirebaseUser = firebaseAuth.getCurrentUser();
         Log.d("LogCat - MainActivity",
-                "checkCurrentUser(): currentFirebaseUser: " + currentFirebaseUser.getEmail());
+                "        The current FIREBASE User is " + currentFirebaseUser.getEmail());
         if (currentFirebaseUser != null) {
             // Get user's email
             String userEmail = currentFirebaseUser.getEmail();
-            Log.d("LogCat - MainActivity", "checkCurrentUser(): userEmail: " + userEmail);
             if (userEmail != null) {
                 // Check if user node exists in the database
                 usersRef.child(userEmail.replace(".", ",")).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            // User node does not exist, create a new user node
+                            Log.d("LogCat - MainActivity", "            And this user is not in the Database");
+                            createNewUser(userEmail);
+                            checkNumberOfGroupsForUser(userEmail);
+                        }
                         if (dataSnapshot.exists()) {
-                            Log.d("LogCat - MainActivity", "onDataChange(DataSnapshot dataSnapshot): " +
-                                    "userEmail already exists in users node");
+                            Log.d("LogCat - MainActivity", "            This user is already in users node\n");
                             // todo check current user's number of groups
                             checkNumberOfGroupsForUser(userEmail);
-                        } else {
-                            // User node does not exist, create a new user node
-                            Log.d("LogCat - MainActivity", "onDataChange(DataSnapshot dataSnapshot): " +
-                                    "dataSnapshot.exists() does not exists");
-                            createNewUser(userEmail);
-                            Log.d("LogCat - MainActivity", "onDataChange(DataSnapshot dataSnapshot): " +
-                                    "createNewUser() called");
-
                         }
                     }
 
@@ -134,19 +116,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkNumberOfGroupsForUser(String userEmail) {
-        Log.d("LogCat - MainActivity", "checkNumberOfGroupsForUser(): Checking number of groups for " +
-                "user: " + userEmail);
+        Log.d("LogCat - MainActivity", "checkNumberOfGroupsForUser(): called\n" +
+                "   Checking number of groups for user for user: " + userEmail);
         // Get a reference to the current user's groups node
-        DatabaseReference userGroupsRef = usersRef.child(userEmail.replace(".", ",")).child("groups");
-        Log.d("LogCat - MainActivity", "checkNumberOfGroupsForUser(): userGroupsRef: " + userGroupsRef.toString());
-
+        DatabaseReference userGroupsRef = usersRef.child(userEmail.replace(".", ",")).child(
+                "groups");
         userGroupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     // Get the number of groups
                     int numGroups = (int) snapshot.getChildrenCount();
-                    Log.d("LogCat - MainActivity", "checkNumberOfGroupsForUser(): numGroups: " + numGroups);
+                    Log.d("LogCat - MainActivity",
+                            "   " + userEmail + "'s number of groups: " + numGroups);
                     // todo
                     //  =0 create new group node
                     //  =1 show that group
@@ -154,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // if the current user doesn't have any groups, create one
                 else {
-                    Log.d("LogCat - MainActivity", "checkNumberOfGroupsForUser(): snapshot.exists() is " +
-                            "false, user doesn't have any groups");
+                    Log.d("LogCat - MainActivity", "   " + userEmail + " doesn't have any groups\n");
                     promptUserToJoinOrCreateGroup(userEmail);
                 }
             }
@@ -168,28 +149,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void createNewUser(String email) {
+        Log.d("LogCat - MainActivity", "createNewUser(): called\n" +
+                "   Creating new user");
         // Create a new User object
         User newUser = new User(email, new HashMap<>(), null);
 
         // Write the User to the Firebase Database
         // Replaced '.' in email with ',' to use as Firebase key
         usersRef.child(email.replace(".", ",")).setValue(newUser)
-                .addOnSuccessListener(aVoid -> {
-                    Log.d("LogCat - MainActivity", "createNewUser: User created successfully");
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("LogCat - MainActivity", "   createNewUser: User created successfully");
+                    }
                 })
-                .addOnFailureListener(e -> {
-                    Log.w("MainActivity", "createNewUser: Failed to create user", e);
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("LogCat - MainActivity", "   createNewUser: User creation failed");
+                    }
                 });
     }
-
-    // todo
-    private void createNewGroup(String groupName, String groupID, Map<String, Boolean> members) {
-
-    }
-
-
 //    private void checkUserGroups(String userEmail) {
 //        // Get a reference to the users node
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -260,22 +241,27 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-
+    /**
+     * Helper method to generate a group.
+     */
     private void promptUserToJoinOrCreateGroup(String userEmail) {
-        Log.d("LogCat - MainActivity", "promptUserToJoinOrCreateGroup(): Prompting user to join or " +
-                "create a group");
+        Log.d("LogCat - MainActivity", "promptUserToJoinOrCreateGroup(): called\n" +
+                "   Prompting user to join or create a group");
         Intent intent = new Intent(MainActivity.this, CreateOrJoinGroupActivity.class);
         intent.putExtra("userEmail", userEmail);
         startActivity(intent);
     }
 
     /**
-     * Helper method to make a toast
+     * Helper method to make a toast.
      */
     private void makeAToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Helper method to replace a fragment.
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

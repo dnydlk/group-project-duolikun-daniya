@@ -1,6 +1,5 @@
 package edu.northeastern.group_project_group_duolikun_daniya.data;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Group {
