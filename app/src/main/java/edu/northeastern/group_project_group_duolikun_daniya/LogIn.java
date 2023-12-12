@@ -39,7 +39,6 @@ public class LogIn extends AppCompatActivity {
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            makeAToast("Welcome Back!");
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
@@ -103,7 +102,6 @@ public class LogIn extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Open main activity if succeed
-                                    makeAToast("Welcome Back!");
                                     Intent intent = new Intent(getApplicationContext(),
                                             MainActivity.class);
                                     startActivity(intent);

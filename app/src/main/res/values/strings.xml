@@ -28,4 +28,6 @@
     <string name="cancel">Cancel</string>
     <string name="member_hint">Member</string>
     <string name="expenses">Expenses</string>
+    <string name="member_name">Member name</string>
+    <string name="save">Save</string>
 </resources>

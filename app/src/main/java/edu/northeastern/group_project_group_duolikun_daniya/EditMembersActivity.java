@@ -96,7 +96,6 @@ public class EditMembersActivity extends AppCompatActivity {
         });
     }
 
-    // todo
     private void addMembersToGroup(String groupID, List<String> memberNames) {
         Log.d("EditMembersActivity", "addMembersToGroup(): called");
 
