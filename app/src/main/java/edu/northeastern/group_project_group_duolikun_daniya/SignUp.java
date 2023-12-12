@@ -1,7 +1,5 @@
 package edu.northeastern.group_project_group_duolikun_daniya;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -32,7 +30,6 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignUp extends AppCompatActivity {
-
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
     Button signUpBtn;
@@ -44,7 +41,7 @@ public class SignUp extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // todo remove this line
-        Log.d("LogCat - SignUpActivity", "onStart() called");
+        Log.d("SignUpActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
@@ -61,7 +58,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // todo remove this line
-        Log.d("LogCat - SignUpActivity", "onCreate() called");
+        Log.d("SignUpActivity", "onCreate() called");
         setContentView(R.layout.activity_sign_up);
 
         // Initializations
@@ -77,7 +74,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // todo remove this line
-                Log.d("LogCat - SignUpActivity", "Sign up button clicked");
+                Log.d("SignUpActivity", "Sign up button clicked");
                 // Hide the keyboard onClick
                 InputMethodManager inputMethodManager =
                         (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -108,7 +105,7 @@ public class SignUp extends AppCompatActivity {
 
                                     // Sign in success, update UI with the signed-in user'
                                     // information
-                                    Log.d(TAG, "createUserWithEmail:success");
+                                    Log.d("SignUpActivity", "createUserWithEmail:success");
                                     Toast.makeText(SignUp.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
 
@@ -125,7 +122,7 @@ public class SignUp extends AppCompatActivity {
                                     }, 1500);
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    Log.w("SignUpActivity", "createUserWithEmail:failure", task.getException());
                                     try {
                                         throw task.getException();
                                     } catch (FirebaseAuthWeakPasswordException e) {

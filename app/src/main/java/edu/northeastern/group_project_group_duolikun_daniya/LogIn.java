@@ -46,6 +46,13 @@ public class LogIn extends AppCompatActivity {
         }
     }
 
+    /**
+     * Helper method to make a toast
+     */
+    private void makeAToast(String message) {
+        Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,13 +128,6 @@ public class LogIn extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    /**
-     * Helper method to make a toast
-     */
-    private void makeAToast(String message) {
-        Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**

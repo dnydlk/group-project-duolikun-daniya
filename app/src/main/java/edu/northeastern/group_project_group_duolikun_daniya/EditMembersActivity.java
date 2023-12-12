@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EditMembersActivity extends AppCompatActivity {
 
@@ -34,7 +35,7 @@ public class EditMembersActivity extends AppCompatActivity {
     private Button nextBtn;
     private Button cancelBtn;
     private int membersCount = 2;
-    private ArrayList<String> memberNames;
+    private List<String> memberNames;
     private String groupID;
     private String userEmail;
     private String groupName;
@@ -42,7 +43,7 @@ public class EditMembersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("LogCat - EditMembersActivity", "onCreate() called");
+        Log.d("EditMembersActivity", "onCreate() called");
         setContentView(R.layout.activity_edit_members);
 
         // Initializations
@@ -53,29 +54,17 @@ public class EditMembersActivity extends AppCompatActivity {
         cancelBtn = findViewById(R.id.cancel_member_btn);
         memberNames = new ArrayList<>();
         groupName = getIntent().getStringExtra("groupName");
-        Log.d("LogCat - EditMembersActivity", "groupName retrieved: " + groupName);
+        Log.d("EditMembersActivity", "groupName retrieved: " + groupName);
         groupID = getIntent().getStringExtra("groupID");
-        Log.d("LogCat - EditMembersActivity", "groupID retrieved: " + groupID);
+        Log.d("EditMembersActivity", "groupID retrieved: " + groupID);
         userEmail = getIntent().getStringExtra("userEmail");
-        Log.d("LogCat - EditMembersActivity", "userEmail retrieved: " + userEmail);
-
-        // db
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        // db/users
-        DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference().child(
-                "users");
-
-        // db/user/dnydlk97@gmail.com
-        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child(
-                "users").child("dnydlk97@");
-
+        Log.d("EditMembersActivity", "userEmail retrieved: " + userEmail);
 
         // Add a new member EditText when the last EditText gets focused
         secondMemberEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                Log.d("LogCat - EditMembersActivity", "onFocusChange() called");
+                Log.d("EditMembersActivity", "onFocusChange() called");
                 if (b) {
                     addNewMemberTextInputEditText();
                     secondMemberEditText.setOnFocusChangeListener(null);
@@ -86,7 +75,7 @@ public class EditMembersActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("LogCat - EditMembersActivity", "nextBtn onClick(): called");
+                Log.d("EditMembersActivity", "nextBtn onClick(): called");
 
                 // Retrieve all member names
                 retrieveAllMemberNames();
@@ -98,7 +87,7 @@ public class EditMembersActivity extends AppCompatActivity {
                 }
 
                 // add members to the group
-                Log.d("LogCat - EditMembersActivity", "TODO: Call addMembersToGroup() here");
+                Log.d("EditMembersActivity", "TODO: Call addMembersToGroup() here");
                 addMembersToGroup(groupID, memberNames);
 
                 // Back to home page
@@ -108,39 +97,40 @@ public class EditMembersActivity extends AppCompatActivity {
     }
 
     // todo
-    private void addMembersToGroup(String groupID, ArrayList<String> memberNames) {
-        Log.d("LogCat - EditMembersActivity", "addMembersToGroup(): called");
+    private void addMembersToGroup(String groupID, List<String> memberNames) {
+        Log.d("EditMembersActivity", "addMembersToGroup(): called");
 
         // Current user's groups node reference
         DatabaseReference groupRef =
                 FirebaseDatabase.getInstance().getReference("users").child(userEmail.replace(".",
                         ",")).child("groups").child(groupID);
-        Log.d("LogCat - EditMembersActivity", "groupRef(with groupID): " + groupRef);
+        Log.d("EditMembersActivity", "groupRef(with groupID): " + groupRef);
 
         HashMap<String, Object> groupUpdates = new HashMap<>();
         groupUpdates.put("/groupID", groupID);
         groupUpdates.put("/groupName", groupName);
         groupUpdates.put("/members", memberNames);
+        groupUpdates.put("/lastInteractedGroup", groupID);
         groupRef.updateChildren(groupUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 // Write was successful
-                Log.d("LogCat - EditMembersActivity", "update group succeeded");
+                Log.d("EditMembersActivity", "update group succeeded");
                 makeAToast("Group created!");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 // Write failed
-                Log.d("LogCat - EditMembersActivity", "update group failed");
+                Log.d("EditMembersActivity", "update group failed");
             }
         });
     }
 
     private void retrieveAllMemberNames() {
-        Log.d("LogCat - EditMembersActivity", "retrieveAllMemberNames(): called");
+        Log.d("EditMembersActivity", "retrieveAllMemberNames(): called");
         memberNames.clear();
-        Log.d("LogCat - EditMembersActivity", "memberNames cleared");
+        Log.d("EditMembersActivity", "memberNames cleared");
 
         for (int i = 0; i < memberInputContainer.getChildCount(); i++) {
             View child = memberInputContainer.getChildAt(i);
@@ -150,7 +140,7 @@ public class EditMembersActivity extends AppCompatActivity {
                         (TextInputEditText) ((TextInputLayout) child).getEditText();
                 if (editText != null) {
                     String inputText = editText.getText().toString().trim();
-                    Log.d("LogCat - EditMembersActivity", "Input text: " + inputText);
+                    Log.d("EditMembersActivity", "Input text: " + inputText);
                     if (!inputText.isEmpty()) {
                         memberNames.add(inputText);
                     }
@@ -159,7 +149,7 @@ public class EditMembersActivity extends AppCompatActivity {
         }
 
         for (String input : memberNames) {
-            Log.d("LogCat - EditMembersActivity", "Input: " + input);
+            Log.d("EditMembersActivity", "Input: " + input);
         }
     }
 

@@ -27,15 +27,13 @@ import java.util.Random;
 import edu.northeastern.group_project_group_duolikun_daniya.data.Group;
 
 public class CreateOrJoinGroupActivity extends AppCompatActivity {
-
     private final String groupID = generateGroupId();
     private TextInputEditText createGroupEditText;
     private TextInputEditText joinGroupEditText;
     private Button nextBtn;
-    private String userEmail;
+    private String userID;
     private String groupNameToCreate;
 
-    // todo don't forget the at least 2 members constraint when creating a group
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +45,15 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         joinGroupEditText = findViewById(R.id.join_group);
         nextBtn = findViewById(R.id.next_create_or_join_btn);
 
-        // Get the user's ID (email)
-        userEmail = getIntent().getStringExtra("userEmail");
-        Log.d("LogCat - CreateOrJoinGroupActivity", "userEmail retrieved: " + userEmail);
+        // Get the user's ID
+        userID = getIntent().getStringExtra("userID");
+        Log.d("LogCat - CreateOrJoinGroupActivity", "userID: " + userID);
 
 //         I forget what i want to do here
 //         but this is getting current user's groups node reference
-        assert userEmail != null;
+        assert userID != null;
         DatabaseReference userGroupsRef =
-                FirebaseDatabase.getInstance().getReference("users").child(userEmail.replace(".",
+                FirebaseDatabase.getInstance().getReference("users").child(userID.replace(".",
                         ",")).child("groups");
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +85,11 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         });
     }
 
-    private void toEditMembersPage() {
-        Log.d("LogCat - CreateOrJoinGroupActivity", "toEditMembersPage(): called");
-        Intent intent = new Intent(CreateOrJoinGroupActivity.this, EditMembersActivity.class);
-        intent.putExtra("groupID", groupID);
-        intent.putExtra("userEmail", userEmail);
-        intent.putExtra("groupName", groupNameToCreate);
-        startActivity(intent);
+    /**
+     * Helper method to make a Toast
+     */
+    private void makeAToast(String message) {
+        Toast.makeText(CreateOrJoinGroupActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -114,17 +110,33 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         // Group created successfully
                         Log.d("LogCat - CreateOrJoinGroupActivity",
-                                "      New group: " + groupNameToCreate + " created successfully");
+                                "      New group: " + groupNameToCreate + " created " +
+                                        "successfully");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Group creation failed
-                        Log.d("LogCat", "      " + groupNameToCreate + " creation failed");
+                        Log.d("LogCat - LogCat", "      " + groupNameToCreate + " creation failed");
                         makeAToast("Group creation failed");
                     }
                 });
+
+        // Set the user's lastInteractedGroup to the newly created group
+        FirebaseDatabase.getInstance().getReference("users").child(userID).child(
+                "lastInteractedGroup").setValue(groupID);
+        Log.d("LogCat - CreateOrJoinGroupActivity",
+                userID + "'s lastInteractedGroup set to " + groupID);
+    }
+
+    private void toEditMembersPage() {
+        Log.d("LogCat - CreateOrJoinGroupActivity", "toEditMembersPage(): called");
+        Intent intent = new Intent(CreateOrJoinGroupActivity.this, EditMembersActivity.class);
+        intent.putExtra("groupID", groupID);
+        intent.putExtra("userEmail", userID);
+        intent.putExtra("groupName", groupNameToCreate);
+        startActivity(intent);
     }
 
     /**
@@ -184,14 +196,6 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
                             "correct");
                 });
     }
-
-    /**
-     * Helper method to make a Toast
-     */
-    private void makeAToast(String message) {
-        Toast.makeText(CreateOrJoinGroupActivity.this, message, Toast.LENGTH_SHORT).show();
-    }
-
 
     /**
      * Helper method to generate a unique group ID
