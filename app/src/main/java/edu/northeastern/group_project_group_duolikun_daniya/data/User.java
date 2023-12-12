@@ -12,7 +12,7 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String email, Map<String, Boolean> groups, String lastInteractedGroupID ) {
+    public User(String email, Map<String, Boolean> groups, String lastInteractedGroupID) {
         this.email = email;
         this.groups = groups;
         this.lastInteractedGroup = lastInteractedGroupID;

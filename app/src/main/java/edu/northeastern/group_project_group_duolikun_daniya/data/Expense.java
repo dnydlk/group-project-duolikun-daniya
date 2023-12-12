@@ -15,7 +15,8 @@ public class Expense {
         // Default constructor required for Firebase
     }
 
-    public Expense(String groupId, double amount, String description, String paidBy, String splitType, String date, Map<String, Double> splitDetails) {
+    public Expense(String groupId, double amount, String description, String paidBy,
+                   String splitType, String date, Map<String, Double> splitDetails) {
         this.groupId = groupId;
         this.amount = amount;
         this.description = description;

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,11 +87,22 @@ public class EditMembersActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("LogCat - EditMembersActivity", "nextBtn onClick(): called");
+
+                // Retrieve all member names
                 retrieveAllMemberNames();
+
+                // Check if there are at least 2 members
+                if (memberNames.size() < 2) {
+                    makeALongToast("Please enter at least 2 members");
+                    return;
+                }
+
                 // add members to the group
                 Log.d("LogCat - EditMembersActivity", "TODO: Call addMembersToGroup() here");
                 addMembersToGroup(groupID, memberNames);
-                // todo
+
+                // Back to home page
+                toHomePage();
             }
         });
     }
@@ -114,6 +126,7 @@ public class EditMembersActivity extends AppCompatActivity {
             public void onSuccess(Void aVoid) {
                 // Write was successful
                 Log.d("LogCat - EditMembersActivity", "update group succeeded");
+                makeAToast("Group created!");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -221,5 +234,19 @@ public class EditMembersActivity extends AppCompatActivity {
         Log.d("LogCat - CreateOrJoinGroupActivity", "toHomePage(): called");
         Intent intent = new Intent(EditMembersActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Helper method to make a Toast
+     */
+    private void makeAToast(String message) {
+        Toast.makeText(EditMembersActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Helper method to make a LONG Toast
+     */
+    private void makeALongToast(String message) {
+        Toast.makeText(EditMembersActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }

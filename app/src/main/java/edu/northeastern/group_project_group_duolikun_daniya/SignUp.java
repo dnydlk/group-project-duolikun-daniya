@@ -158,12 +158,20 @@ public class SignUp extends AppCompatActivity {
     }
 
     /**
+     * Helper method to make a Toast
+     */
+    private void makeAToast(String message) {
+        Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * Helper method to reset password
      */
     private void resetPassword(String messageToShow, String emailToResetPassword) {
 
         // Show a snackbar with an action to reset password
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), messageToShow, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), messageToShow,
+                Snackbar.LENGTH_LONG);
 
         // Send password reset email
         snackbar.setAction("Send Email", new View.OnClickListener() {
@@ -183,13 +191,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
         snackbar.show();
-    }
-
-    /**
-     * Helper method to make a Toast
-     */
-    private void makeAToast(String message) {
-        Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**

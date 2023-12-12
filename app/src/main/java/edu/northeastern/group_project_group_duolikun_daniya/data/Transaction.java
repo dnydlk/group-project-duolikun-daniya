@@ -12,7 +12,8 @@ public class Transaction {
         // Default constructor required for Firebase
     }
 
-    public Transaction(String payerId, String receiverId, double amount, String groupId, String date, String status) {
+    public Transaction(String payerId, String receiverId, double amount, String groupId,
+                       String date, String status) {
         this.payerId = payerId;
         this.receiverId = receiverId;
         this.amount = amount;

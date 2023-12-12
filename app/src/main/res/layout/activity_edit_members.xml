@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="30dp"
     tools:context=".EditMembersActivity">
@@ -47,7 +46,7 @@
                 android:id="@+id/member_input_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/member_2"/>
+                android:hint="@string/member_2" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
