@@ -32,6 +32,8 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
     private TextInputEditText createGroupEditText;
     private TextInputEditText joinGroupEditText;
     private Button nextBtn;
+    private String userEmail;
+    private String groupNameToCreate;
 
     // todo don't forget the at least 2 members constraint when creating a group
     @Override
@@ -46,7 +48,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.next_create_or_join_btn);
 
         // Get the user's ID (email)
-        String userEmail = getIntent().getStringExtra("userEmail");
+        userEmail = getIntent().getStringExtra("userEmail");
         Log.d("LogCat - CreateOrJoinGroupActivity", "userEmail retrieved: " + userEmail);
 
 //         I forget what i want to do here
@@ -59,7 +61,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String groupNameToCreate = String.valueOf(createGroupEditText.getText());
+                groupNameToCreate = String.valueOf(createGroupEditText.getText());
                 String groupIDToJoin = String.valueOf(joinGroupEditText.getText());
 
                 // Both fields are empty
@@ -89,6 +91,8 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         Log.d("LogCat - CreateOrJoinGroupActivity", "toEditMembersPage(): called");
         Intent intent = new Intent(CreateOrJoinGroupActivity.this, EditMembersActivity.class);
         intent.putExtra("groupID", groupID);
+        intent.putExtra("userEmail", userEmail);
+        intent.putExtra("groupName", groupNameToCreate);
         startActivity(intent);
     }
 
