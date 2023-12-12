@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Groupprojectgroupduolikundaniya"
         tools:targetApi="31">
         <activity
+            android:name=".EditMembersActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserAccount"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <!-- Sign up page as Launcher Activity -->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity
@@ -34,7 +37,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <!-- Login page as Launcher Activity -->
-                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity

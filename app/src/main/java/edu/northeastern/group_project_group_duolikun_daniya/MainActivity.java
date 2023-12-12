@@ -29,6 +29,7 @@ import java.util.HashMap;
 import edu.northeastern.group_project_group_duolikun_daniya.data.User;
 
 public class MainActivity extends AppCompatActivity {
+
     private FirebaseAuth firebaseAuth;
     private DatabaseReference usersRef;
     private BottomNavigationView bottomNavigationView;
@@ -90,27 +91,30 @@ public class MainActivity extends AppCompatActivity {
             String userEmail = currentFirebaseUser.getEmail();
             if (userEmail != null) {
                 // Check if user node exists in the database
-                usersRef.child(userEmail.replace(".", ",")).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.exists()) {
-                            // User node does not exist, create a new user node
-                            Log.d("LogCat - MainActivity", "            And this user is not in the Database");
-                            createNewUser(userEmail);
-                            checkNumberOfGroupsForUser(userEmail);
-                        }
-                        if (dataSnapshot.exists()) {
-                            Log.d("LogCat - MainActivity", "            This user is already in users node\n");
-                            // todo check current user's number of groups
-                            checkNumberOfGroupsForUser(userEmail);
-                        }
-                    }
+                usersRef.child(userEmail.replace(".", ","))
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.exists()) {
+                                    // User node does not exist, create a new user node
+                                    Log.d("LogCat - MainActivity",
+                                            "            And this user is not in the Database");
+                                    createNewUser(userEmail);
+                                    checkNumberOfGroupsForUser(userEmail);
+                                }
+                                if (dataSnapshot.exists()) {
+                                    Log.d("LogCat - MainActivity",
+                                            "            This user is already in users node\n");
+                                    // todo check current user's number of groups
+                                    checkNumberOfGroupsForUser(userEmail);
+                                }
+                            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Handle possible errors
-                    }
-                });
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Handle possible errors
+                            }
+                        });
             }
         }
     }
@@ -136,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // if the current user doesn't have any groups, create one
                 else {
-                    Log.d("LogCat - MainActivity", "   " + userEmail + " doesn't have any groups\n");
+                    Log.d("LogCat - MainActivity", "   " + userEmail + " doesn't have any " +
+                            "groups\n");
                     promptUserToJoinOrCreateGroup(userEmail);
                 }
             }
@@ -161,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("LogCat - MainActivity", "   createNewUser: User created successfully");
+                        Log.d("LogCat - MainActivity", "   createNewUser: User created " +
+                                "successfully");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

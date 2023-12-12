@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".EditMembersActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Prompt TextView -->
+    <TextView
+        android:id="@+id/add_members_prompt_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_members_to_your_group"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <!-- Container for member name input -->
+    <LinearLayout
+        android:id="@+id/edit_member_linear_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <!-- Member 1 TextInputEditText -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_member_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/member_input_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/member_1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Member 2 TextInputEditText -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/member_input_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/member_2"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Next Button -->
+    <Button
+        android:id="@+id/next_member_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/next"
+        android:textSize="17sp" />
+
+    <!-- Cancel Button -->
+    <Button
+        android:id="@+id/cancel_member_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/cancel"
+        android:textSize="16sp" />
+
+</LinearLayout>
