@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView groupNameTextView;
     private TextView totalSpentAmountTextView;
     private ImageView userAccountBtn, shareGroupNumBtn, switchGroupBtn, addGroupBtn;
-    private FloatingActionButton floatingActionAddExpenseBtn;
     private BottomNavigationView bottomNavigationView;
 
     public void setCurGroupID(String curGroupID) {
@@ -55,97 +53,6 @@ public class MainActivity extends AppCompatActivity {
         // Set listeners
         setListeners();
 
-//        getLoggedInFirebaseUserEmail();
-//
-//        // Initializations
-//        bottomNavigationView = findViewById(R.id.home_bottom_navigation);
-//        groupNameTextView = findViewById(R.id.group_name_text_view);
-//        totalSpentTextView = findViewById(R.id.total_spent_text_view);
-//        totalSpentAmountTextView = findViewById(R.id.total_spent_amount);
-//        shareGroupBtn = findViewById(R.id.share_group_num_btn);
-//        switchGroupBtn = findViewById(R.id.switch_group_btn);
-//        newGroupBtn = findViewById(R.id.add_group_btn);
-//        addExpenseBtn = findViewById(R.id.floating_action_add_expense_btn);
-//        userAccountBtn = findViewById(R.id.user_account_btn);
-//
-//        addExpenseBtn.setOnClickListener(v -> {
-//            Log.d("LogCat - MainActivity", "onClick: clicked");
-//            //todo showAddExpenseDialog();
-//        });
-//
-//        shareGroupBtn.setOnClickListener(v -> {
-//            Log.d("LogCat - MainActivity", "onClick: clicked");
-//            //todo copy and current groupID and makeatoast
-//        });
-//
-//        switchGroupBtn.setOnClickListener(v -> {
-//            Log.d("LogCat - MainActivity", "onClick: clicked");
-//            //todo switch to new group;
-//        });
-//
-//        newGroupBtn.setOnClickListener(v -> {
-//            Log.d("LogCat - MainActivity", "onClick: clicked");
-//            promptUserToJoinOrCreateGroup(userID);
-//        });
-//
-//        userAccountBtn.setOnClickListener(v -> {
-//            Log.d("LogCat - MainActivity", "onClick: clicked");
-//            Intent intent = new Intent(MainActivity.this, UserAccount.class);
-//            startActivity(intent);
-//        });
-//
-//        // Get a reference to current user
-//        allUsersRef = FirebaseDatabase.getInstance().getReference(USERS);
-//        Log.d("LogCat - MainActivity", "allUsersRef: " + allUsersRef.getPath().toString());
-//
-//        // Get a reference to the current user's all groups
-//        userAllGroupsRef =
-//                FirebaseDatabase.getInstance().getReference(USERS).child(userID).child(GROUPS);
-//        Log.d("LogCat - MainActivity",
-//                "userAllGroupsRef: " + userAllGroupsRef.getPath().toString());
-//
-//        // Get a reference to the current user's last interacted group, and get the curGroupID
-//        lastInteractedGroupRef =
-//                FirebaseDatabase.getInstance().getReference(USERS).child(userID).child(
-//                        "lastInteractedGroup");
-//        lastInteractedGroupRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                setCurGroupID(dataSnapshot.getValue(String.class));
-//                Log.d("LogCat - MainActivity", "current groupID: " + curGroupID);
-//
-//                fetchAndUpdateGroupName(curGroupID);
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                Log.d("LogCat - MainActivity", "Failed to read value.", error.toException());
-//            }
-//        });
-//
-//
-//        // Check if the current user exists in the database, if not, create a new user node
-//        checkCurrentUserExists();
-//
-//        // Bottom Navigation View
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//            int itemId = item.getItemId();
-//
-////                if (itemId == R.id.home) {
-////                    replaceFragment(new MainActivity());
-////                } else if (itemId == R.id.members) {
-////                    replaceFragment(new MembersFragment());
-////                } else if (itemId == R.id.expenses) {
-////                    replaceFragment(new ExpensesFragment());
-////                } else if (itemId == R.id.transactions) {
-////                    replaceFragment(new TransactionsFragment());
-////                }
-//
-//            item.setChecked(true);
-//            return false;
-//        });
-
     }
 
     private void initializeUI() {
@@ -156,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         shareGroupNumBtn = findViewById(R.id.share_group_num_btn);
         switchGroupBtn = findViewById(R.id.switch_group_btn);
         addGroupBtn = findViewById(R.id.add_group_btn);
-        floatingActionAddExpenseBtn = findViewById(R.id.floating_action_add_expense_btn);
         bottomNavigationView = findViewById(R.id.home_bottom_navigation);
     }
 
@@ -236,10 +142,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        floatingActionAddExpenseBtn.setOnClickListener(view -> {
-            // todo Start activity for adding a new expense
-        });
-
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
@@ -253,10 +155,14 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.expenses) {
                 Log.d("LogCat - MainActivity", "Expenses Clicked");
                 Intent intent = new Intent(MainActivity.this, ExpenseActivity.class);
+                intent.putExtra("curGroupID", curGroupID);
+                intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
-            } else if (itemId == R.id.transactions) {
+            } else if (itemId == R.id.user) {
                 Log.d("LogCat - MainActivity", "Transactions Clicked");
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
+                intent.putExtra("curGroupID", curGroupID);
+                intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
             }
             return false;

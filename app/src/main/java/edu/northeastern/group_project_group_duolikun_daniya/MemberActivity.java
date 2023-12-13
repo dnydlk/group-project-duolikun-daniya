@@ -33,8 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.northeastern.group_project_group_duolikun_daniya.MemberRecycleView.MemberItem;
-import edu.northeastern.group_project_group_duolikun_daniya.MemberRecycleView.MembersAdapter;
+import edu.northeastern.group_project_group_duolikun_daniya.member_recycle_view.MemberItem;
+import edu.northeastern.group_project_group_duolikun_daniya.member_recycle_view.MembersAdapter;
 
 public class MemberActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -166,6 +166,7 @@ public class MemberActivity extends AppCompatActivity {
 
     private void initializeUI() {
         addMemberBtn = findViewById(R.id.floating_action_add_member_btn);
+        bottomNavigationView = findViewById(R.id.member_bottom_navigation);
     }
     
     private void setUpListeners() {
@@ -183,6 +184,8 @@ public class MemberActivity extends AppCompatActivity {
             if (itemId == R.id.home) {
                 Log.d("LogCat - MainActivity", "Menu Clicked");
                 Intent intent = new Intent(MemberActivity.this, MainActivity.class);
+                intent.putExtra("curGroupID", curGroupID);
+                intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
             } else if (itemId == R.id.members) {
                 Log.d("LogCat - MainActivity", "Members Clicked");
@@ -192,9 +195,11 @@ public class MemberActivity extends AppCompatActivity {
                 intent.putExtra("curGroupID", curGroupID);
                 intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
-            } else if (itemId == R.id.transactions) {
+            } else if (itemId == R.id.user) {
                 Log.d("LogCat - MainActivity", "Transactions Clicked");
                 Intent intent = new Intent(MemberActivity.this, TransactionActivity.class);
+                intent.putExtra("curGroupID", curGroupID);
+                intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
             }
             return false;

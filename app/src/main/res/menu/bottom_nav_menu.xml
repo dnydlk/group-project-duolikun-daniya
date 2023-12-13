@@ -17,7 +17,7 @@
         android:title="@string/expense"/>
 
     <item
-        android:id="@+id/transactions"
-        android:icon="@drawable/ic_transactions"
+        android:id="@+id/user"
+        android:icon="@drawable/baseline_supervised_user_circle_24"
         android:title="@string/transactions"/>
 </menu>

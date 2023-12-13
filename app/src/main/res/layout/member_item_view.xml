@@ -6,7 +6,7 @@
     android:layout_marginTop="10dp">
 
     <ImageView
-        android:id="@+id/item_image_view"
+        android:id="@+id/expense_item_image_view"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/baseline_emoji_people_24"
@@ -14,14 +14,14 @@
         android:layout_marginRight="10dp" />
 
     <TextView
-        android:id="@+id/item_name_text_view"
+        android:id="@+id/expense_item_who_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="0dp"
-        android:layout_toEndOf="@id/item_image_view"
+        android:layout_toEndOf="@id/expense_item_image_view"
         android:textColor="@color/black"
         android:textSize="20sp"
         tools:text="Item Name" />
@@ -29,7 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/item_image_view"
+        android:layout_below="@id/expense_item_image_view"
         android:layout_marginTop="10dp"
         android:background="@color/purple" />
 

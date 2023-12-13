@@ -1,4 +1,4 @@
-package edu.northeastern.group_project_group_duolikun_daniya.MemberRecycleView;
+package edu.northeastern.group_project_group_duolikun_daniya.member_recycle_view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MemberViewHolder> {
     @Override
     public MemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_view, parent, false);
+                .inflate(R.layout.member_item_view, parent, false);
         return new MemberViewHolder(view);
     }
 
