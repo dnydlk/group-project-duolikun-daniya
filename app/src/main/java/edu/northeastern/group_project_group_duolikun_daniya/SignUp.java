@@ -40,14 +40,10 @@ public class SignUp extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // todo remove this line
         Log.d("SignUpActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            // todo Only testing now, so the new intent is directed to the User Account Page
-            //  But in the end it should be the Home page
-//            Intent intent = new Intent(getApplicationContext(), UserAccount.class);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
@@ -57,7 +53,6 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // todo remove this line
         Log.d("SignUpActivity", "onCreate() called");
         setContentView(R.layout.activity_sign_up);
 
@@ -73,7 +68,6 @@ public class SignUp extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // todo remove this line
                 Log.d("SignUpActivity", "Sign up button clicked");
                 // Hide the keyboard onClick
                 InputMethodManager inputMethodManager =
@@ -122,7 +116,8 @@ public class SignUp extends AppCompatActivity {
                                     }, 1500);
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w("SignUpActivity", "createUserWithEmail:failure", task.getException());
+                                    Log.w("SignUpActivity", "createUserWithEmail:failure",
+                                            task.getException());
                                     try {
                                         throw task.getException();
                                     } catch (FirebaseAuthWeakPasswordException e) {

@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="50dp"
-    tools:context=".UserAccount">
+    tools:context=".UserAccountActivity">
 
     <!-- todo Email Header here  -->
     <TextView

@@ -30,4 +30,5 @@
     <string name="expenses">Expenses</string>
     <string name="member_name">Member name</string>
     <string name="save">Save</string>
+    <string name="add_an_expense_to_your_group">Add an expense to your group</string>
 </resources>

@@ -1,9 +1,9 @@
-package edu.northeastern.group_project_group_duolikun_daniya.RecycleView;
+package edu.northeastern.group_project_group_duolikun_daniya.MemberRecycleView;
 
-public class Member {
+public class MemberItem {
     private String name;
 
-    public Member(String name) {
+    public MemberItem(String name) {
         this.name = name;
     }
 

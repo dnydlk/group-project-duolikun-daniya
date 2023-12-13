@@ -109,7 +109,6 @@ public class EditMembersActivity extends AppCompatActivity {
         groupUpdates.put("/groupID", groupID);
         groupUpdates.put("/groupName", groupName);
         groupUpdates.put("/members", memberNames);
-        groupUpdates.put("/lastInteractedGroup", groupID);
         groupRef.updateChildren(groupUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

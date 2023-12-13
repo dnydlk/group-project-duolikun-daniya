@@ -1,6 +1,5 @@
-package edu.northeastern.group_project_group_duolikun_daniya.RecycleView;
+package edu.northeastern.group_project_group_duolikun_daniya.MemberRecycleView;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import edu.northeastern.group_project_group_duolikun_daniya.R;
 
-public class MembersAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class MembersAdapter extends RecyclerView.Adapter<MemberViewHolder> {
     List<String> membersList;
 
     public MembersAdapter(List<String> membersList) {
@@ -21,14 +20,14 @@ public class MembersAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_view, parent, false);
-        return new MyViewHolder(view);
+        return new MemberViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MemberViewHolder holder, int position) {
         holder.nameView.setText(membersList.get(position));
     }
 

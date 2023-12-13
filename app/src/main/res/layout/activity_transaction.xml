@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".ExpensesFragment">
-
-    <!-- Expenses Heading -->
-    <TextView
-        android:id="@+id/expenses_text_view"
-        style="@style/fragment_heading_text_view"
-        android:text="@string/expenses"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".TransactionActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

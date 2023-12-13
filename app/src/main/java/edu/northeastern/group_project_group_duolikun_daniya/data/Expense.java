@@ -7,9 +7,8 @@ public class Expense {
     private double amount;
     private String description;
     private String paidBy;
-    private String splitType;
     private String date;
-    private Map<String, Double> splitDetails;
+    private Map<String, String> whoPaid;
 
     public Expense() {
         // Default constructor required for Firebase
@@ -21,9 +20,7 @@ public class Expense {
         this.amount = amount;
         this.description = description;
         this.paidBy = paidBy;
-        this.splitType = splitType;
         this.date = date;
-        this.splitDetails = splitDetails;
     }
 
     public String getGroupId() {
@@ -58,14 +55,6 @@ public class Expense {
         this.paidBy = paidBy;
     }
 
-    public String getSplitType() {
-        return splitType;
-    }
-
-    public void setSplitType(String splitType) {
-        this.splitType = splitType;
-    }
-
     public String getDate() {
         return date;
     }
@@ -74,11 +63,4 @@ public class Expense {
         this.date = date;
     }
 
-    public Map<String, Double> getSplitDetails() {
-        return splitDetails;
-    }
-
-    public void setSplitDetails(Map<String, Double> splitDetails) {
-        this.splitDetails = splitDetails;
-    }
 }

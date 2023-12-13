@@ -34,7 +34,6 @@ public class LogIn extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // todo remove this line
         Log.d("LogCat - LogInActivity", "onStart() called");
         // Check if user is signed in (non-null) and open MainActivity accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -55,7 +54,6 @@ public class LogIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // todo remove this line
         Log.d("LogCat - LogInActivity", "onCreate() called");
         setContentView(R.layout.activity_log_in);
 

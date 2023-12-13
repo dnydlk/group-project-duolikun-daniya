@@ -46,7 +46,7 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.next_create_or_join_btn);
 
         // Get the user's ID
-        userID = getIntent().getStringExtra("userID");
+        userID = getIntent().getStringExtra("userEmail");
         Log.d("LogCat - CreateOrJoinGroupActivity", "userID: " + userID);
 
 //         I forget what i want to do here
@@ -137,21 +137,6 @@ public class CreateOrJoinGroupActivity extends AppCompatActivity {
         intent.putExtra("userEmail", userID);
         intent.putExtra("groupName", groupNameToCreate);
         startActivity(intent);
-    }
-
-    /**
-     * Exit app on back button press on this activity
-     */
-    @Override
-    public void onBackPressed() {
-        // todo give user the choice to log out
-        new AlertDialog.Builder(this).setTitle("").setMessage("You need to create or join a group" +
-                " to be able to use the app's features\n" +
-                "Are you sure you want to " + "exit?").setPositiveButton(
-                "Yes", (dialog, which) -> {
-                    super.onBackPressed();
-                }).setNegativeButton("No", null).show();
-
     }
 
     /**

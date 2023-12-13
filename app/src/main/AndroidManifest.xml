@@ -15,10 +15,19 @@
         android:theme="@style/Theme.Groupprojectgroupduolikundaniya"
         tools:targetApi="31">
         <activity
+            android:name=".TransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExpenseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MemberActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditMembersActivity"
             android:exported="false" />
         <activity
-            android:name=".UserAccount"
+            android:name=".UserAccountActivity"
             android:exported="false" />
         <activity
             android:name=".SignUp"

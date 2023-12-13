@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class UserAccount extends AppCompatActivity {
+public class UserAccountActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -24,7 +24,7 @@ public class UserAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account);
-        Log.d("LogCat - UserAccount", "onCreate() called");
+        Log.d("LogCat - UserAccountActivity", "onCreate() called");
 
         // Initializations
         firebaseAuth = FirebaseAuth.getInstance();

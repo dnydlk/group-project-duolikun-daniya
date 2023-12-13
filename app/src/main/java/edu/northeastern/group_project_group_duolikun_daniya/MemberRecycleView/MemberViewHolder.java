@@ -1,4 +1,4 @@
-package edu.northeastern.group_project_group_duolikun_daniya.RecycleView;
+package edu.northeastern.group_project_group_duolikun_daniya.MemberRecycleView;
 
 import android.view.View;
 import android.widget.TextView;
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import edu.northeastern.group_project_group_duolikun_daniya.R;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class MemberViewHolder extends RecyclerView.ViewHolder {
     TextView nameView;
-    public MyViewHolder(@NonNull View itemView) {
+    public MemberViewHolder(@NonNull View itemView) {
         super(itemView);
         nameView = itemView.findViewById(R.id.item_name_text_view);
     }
