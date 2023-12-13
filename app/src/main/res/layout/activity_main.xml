@@ -72,20 +72,7 @@
         android:src="@drawable/baseline_share_24"
         app:layout_constraintBottom_toTopOf="@+id/home_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_spent_amount"
-        app:layout_constraintVertical_bias="0.335" />
-
-    <ImageView
-        android:id="@+id/switch_group_btn"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/baseline_change_circle_24"
-        app:layout_constraintBottom_toTopOf="@+id/home_bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/total_spent_amount"
         app:layout_constraintVertical_bias="0.335" />
@@ -99,7 +86,7 @@
         android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toTopOf="@+id/home_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/total_spent_amount"
         app:layout_constraintVertical_bias="0.335" />

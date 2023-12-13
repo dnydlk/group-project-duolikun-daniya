@@ -197,7 +197,7 @@ public class MemberActivity extends AppCompatActivity {
                 startActivity(intent);
             } else if (itemId == R.id.user) {
                 Log.d("LogCat - MainActivity", "Transactions Clicked");
-                Intent intent = new Intent(MemberActivity.this, TransactionActivity.class);
+                Intent intent = new Intent(MemberActivity.this, UserAccountActivity.class);
                 intent.putExtra("curGroupID", curGroupID);
                 intent.putExtra("userEmail", userEmail);
                 startActivity(intent);

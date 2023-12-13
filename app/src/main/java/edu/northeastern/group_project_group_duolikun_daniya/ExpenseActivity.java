@@ -227,7 +227,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 Log.d("LogCat - MainActivity", "Expenses Clicked");
             } else if (itemId == R.id.user) {
                 Log.d("LogCat - MainActivity", "Transactions Clicked");
-                Intent intent = new Intent(ExpenseActivity.this, TransactionActivity.class);
+                Intent intent = new Intent(ExpenseActivity.this, UserAccountActivity.class);
                 intent.putExtra("curGroupID", curGroupID);
                 intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
@@ -466,4 +466,5 @@ public class ExpenseActivity extends AppCompatActivity {
             }
         });
     }
+
 }
